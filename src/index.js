@@ -1,14 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+
 import './index.css';
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.css';
 import App from './components/App';
-import allReducer from './reducers';
+// import App from './components/App';
+import './App.css'
+import registerServiceWorker from './registerServiceWorker';
+
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-import registerServiceWorker from './registerServiceWorker';
+import allReducer from './reducers';
+
+import { BrowserRouter } from 'react-router-dom';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 const store = createStore(
   allReducer,
@@ -17,7 +22,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter><App /></BrowserRouter>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
