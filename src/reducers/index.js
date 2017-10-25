@@ -4,9 +4,9 @@ import posts from './reducer-post'
 import comments from './reducer-comment'
 
 const allReducer = combineReducers({
-  category: categories,
-  post: posts,
-  comment: comments,
+  categories: categories,
+  posts: posts,
+  comments: comments,
 })
 
 export default allReducer

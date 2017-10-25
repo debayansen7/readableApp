@@ -1,59 +1,52 @@
 import React, { Component } from 'react'
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux'
-// import logo from '../logo.svg';
+import { loadCategory, loadPost } from '../actions/index';
+import { bindActionCreators } from 'redux'
+
+
 import '../App.css';
-import Category from './category';
-import PostList from './postList';
+import AppHeader from './appHeader';
+import Home from './Home'
+import CreatePost from './createPost'
+import NoMatch from './NoMatch'
+import API from '../utils/apis';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      backend: 'backend-data'
-    }
-  }
 
   componentDidMount() {
-    // const url = `http://localhost:3001/categories`;
-    const url = `${process.env.REACT_APP_BACKEND}/categories`;
-    console.log('fetching from url', url);
-    fetch(url, { headers: { 'Authorization': 'deb' },
-                 credentials: 'include' } )
-      .then( (res) => { return(res.text()) })
-      .then((data) => {
-        this.setState({backend:data});
-      });
+    API.fetchCategories().then((data) => this.props.loadCategory(data))
+
+    API.fetchPosts().then((data) => this.props.loadPost({data}));
   }
 
   render() {
     return (
       <div className="App container">
-        <div className="App-header ">
-          <h2>Welcome to Readable App</h2>
-          <ul>
-            <li> + Create, Update or Delete Categories on Topics you like.</li>
-            <li> + Create, Update or Delete Posts on Topics you like.</li>
-            <li> + Rate, Like and Comment on the posts you like</li>
-          </ul>
+        <AppHeader />
+
+        <div className='App-body'>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/createPost" component={CreatePost} />
+            <Route component={NoMatch}/>
+          </Switch>
         </div>
-        <div className='row container'>
-          <div className='col-md-4'>
-            <Category / >
-          </div>
-          <div className='col-md-8'>
-            <PostList />
-          </div>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Talking to the backend yields these categories: <br/>
-          {this.state.backend}
-        </p>
+
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return state
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    loadCategory,
+    loadPost
+  },dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
