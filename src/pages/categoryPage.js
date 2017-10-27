@@ -5,12 +5,18 @@ import {ListGroup, ListGroupItem, Button, ButtonGroup} from 'react-bootstrap';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import {selectPost} from '../actions/index';
+import API from '../utils/apis';
 import helperFunctions from '../utils/helperFunctions';
 
-class PostList extends Component {
+class categoryPage extends Component {
 
-    createPostList() {
-        let newList = this.props.posts.map((post) => {
+    state = {
+        posts: []
+    }
+
+    createPostList(posts) {
+        // console.log(this.state);
+        let newList = posts.map((post) => {
             // let category = helperFunctions.formatCategory(post.category);
             let time = helperFunctions.formatDate(post.timestamp);
             return (
@@ -27,17 +33,26 @@ class PostList extends Component {
         return newList;
     }
 
+    componentDidMount() {
+        API.fetchCategoryPosts(this.props.match.params.categoryName).then((posts) => {
+            this.setState({posts:JSON.parse(posts)})
+        })
+    }
+
     render() {
+        console.log(this.props.match.params.categoryName);
+
         return (
-            <div className='postList  well'>
-                <h3>Post List</h3>
-                <p>Select the Post you might like:</p>
-                <ListGroup>{this.createPostList()}</ListGroup>
+            <div className="categoryPage well">
+                <h3>Posts under this categroy</h3>
+                {this.state.posts.length !== 0 ?
+                    <ListGroup>{this.createPostList(this.state.posts)}</ListGroup> : <p>Sorry No Posts yet</p>
+                }
                 <Link to='/createPost'>Add Post</Link>
             </div>
-        )
+        );
     }
-};
+}
 
 function mapStateToProps({posts}) {
     return {posts: posts}
@@ -47,4 +62,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({selectPost}, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default connect(mapStateToProps, mapDispatchToProps)(categoryPage);

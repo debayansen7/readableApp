@@ -5,17 +5,21 @@ import { loadCategory, loadPost } from '../actions/index';
 import { bindActionCreators } from 'redux'
 
 import AppHeader from './appHeader';
-import Home from './Home'
-import CreatePost from './createPost'
-import NoMatch from './NoMatch'
+import Home from '../pages/Home'
+import categoryPage from '../pages/categoryPage'
+import CreatePost from '../pages/createPost'
+import postDetail from '../pages/postDetail'
+import NoMatch from '../pages/NoMatch'
 import '../App.css';
 import API from '../utils/apis';
+import helperFunctions from '../utils/helperFunctions';
 
 class App extends Component {
 
   componentDidMount() {
-    API.fetchCategories().then((data) => this.props.loadCategory(data))
-
+    API.fetchCategories().then((data) => {
+        this.props.loadCategory(helperFunctions.objectFromArray(data))
+    })
     API.fetchPosts().then((data) => this.props.loadPost({data}));
   }
 
@@ -27,6 +31,10 @@ class App extends Component {
         <div className='App-body'>
           <Switch>
             <Route exact path="/" render={() => <Home />} />
+            <Route exact path="/categoryPage/:categoryName" component={categoryPage} />
+            <Route exact path="/postDetail/:postID" component={postDetail} />
+            <Route exact path="/createPost" component={CreatePost} />
+            <Route exact path="/editPost/:postID" component={CreatePost} />
             <Route exact path="/createPost" component={CreatePost} />
             <Route component={NoMatch}/>
           </Switch>

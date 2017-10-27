@@ -1,34 +1,29 @@
-import { LOAD_POST, SELECT_POST, ADD_POST, DELETE_POST } from '../actions'
+import { LOAD_POST, ADD_POST, DELETE_POST } from '../actions'
+// import { LOAD_POST, SELECT_POST, ADD_POST, DELETE_POST } from '../actions'
 
-const initialPosts = []
+const initialPosts = [];
 
 export default function posts(state=initialPosts, action) {
+    // console.log(action);
 
-  const {post} = action
+    switch (action.type) {
+        case LOAD_POST :
+            const arr = JSON.parse(action.data.data);
+            return state[posts] = arr
 
-  switch (action.type) {
-    case LOAD_POST :
-      const arr = JSON.parse(action.data.data);
-      return state[posts] = arr
+        case ADD_POST :
+            const arrData = action.data;
+            console.log(arrData);
+            const oldArr = state;
+            oldArr.push(arrData);
+            console.log(oldArr);
+            return state = oldArr
 
-    case SELECT_POST :
 
-      return {
-        ...state,
-        [post]: {name:post.name , text:action.text}
-      }
+        case DELETE_POST :
+        break;
 
-    case ADD_POST :
-
-      return {
-        ...state,
-        // // [name]: name,
-      }
-
-    case DELETE_POST :
-    break;
-
-    default :
-      return state
-  }
+        default :
+          return state
+    }
 };

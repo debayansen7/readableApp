@@ -7,6 +7,7 @@ const allReducer = combineReducers({
   categories: categories,
   posts: posts,
   comments: comments,
+  selectedPost: {}
 })
 
 export default allReducer
