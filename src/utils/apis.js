@@ -52,7 +52,7 @@ class API {
             });
     };
 
-    /* ------------------------ API Calls--------------------------------------*/
+    /* ------------------------ Categories Calls--------------------------------------*/
 
     static fetchCategories(){   // Get all of the categories available for the app.
         const url = `${host}/categories`;
@@ -96,6 +96,19 @@ class API {
     //   PARAMS:
     //     option - String: Either "upVote" or "downVote"
 
+    static updatePost(id, data){ // Used for voting on a post
+        const url = `${host}/posts/${id}`;
+        return this.postData(url, data)
+    }
+
+    static deletePost(id){ //  Deleting a post
+        const url = `${host}/posts/${id}`;
+        return this.deleteData(url)
+    }
+    // DELETE /posts/:id
+    //   USAGE:
+    //     Sets the deleted flag for a post to 'true'.
+    //     Sets the parentDeleted flag for all child comments to 'true'.
 
     // ---------------- Comments -------------------------------
 
@@ -108,6 +121,15 @@ class API {
         const url = `${host}/comments`;
         return this.postData(url, data)
     };
+
+    static deleteComment(id){     // Deleting a post
+        const url = `${host}/comments/${id}`;
+        return this.postData(url)
+    };
+    // DELETE /comments/:id
+    //   USAGE:
+    //     Sets a comment's deleted flag to 'true'
+
     // POST /comments
     //   USAGE:
     //     Add a comment to a post
@@ -137,15 +159,6 @@ class API {
     //     title - String
     //     body - String
     //
-    // DELETE /comments/:id
-    //   USAGE:
-    //     Sets a comment's deleted flag to 'true'
-    //
-    // DELETE /posts/:id
-    //   USAGE:
-    //     Sets the deleted flag for a post to 'true'.
-    //     Sets the parentDeleted flag for all child comments to 'true'.
-
 };
 
 export default API;

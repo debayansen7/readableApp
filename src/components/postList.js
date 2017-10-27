@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-import {ListGroup, ListGroupItem, Button, ButtonGroup} from 'react-bootstrap';
+import {ListGroup, ListGroupItem, Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import {selectPost} from '../actions/index';
@@ -30,10 +30,15 @@ class PostList extends Component {
     render() {
         return (
             <div className='postList  well'>
-                <h3>Post List</h3>
-                <p>Select the Post you might like:</p>
+                <h3>Post List: </h3>
+                <p>Select the Post that you might like:</p>
+                <ButtonToolbar>
+                    <Button >Latest</Button>
+                    <Button>Highest Rating</Button>
+                    <Button><Link to='/createPost'>Add Post</Link></Button>
+                </ButtonToolbar>
                 <ListGroup>{this.createPostList()}</ListGroup>
-                <Link to='/createPost'>Add Post</Link>
+
             </div>
         )
     }
