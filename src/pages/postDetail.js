@@ -7,6 +7,7 @@ import {Button, Glyphicon} from 'react-bootstrap';
 // import {connect} from 'react-redux';
 // import {selectPost} from '../actions/index';
 import ListComments from '../components/listComments';
+import DeleteBtn from '../components/deleteBtn';
 
 class postDetail extends Component {
 
@@ -57,9 +58,9 @@ class postDetail extends Component {
                 {comments.length !== 0 ? <ListComments comments={this.state.comments} /> : <p>Sorry No Comments yet</p>
                 }
                 <hr/>
-                <Button bsStyle="default"><Link to='/createComment'>Add Comments</Link></Button>&nbsp;
-                <Button bsStyle="primary">Edit Post</Button>&nbsp;
-                <Button bsStyle="danger">Delete Post</Button>
+                <Button bsSize="small" bsStyle="default"><Link to='/createComment'>Add Comments</Link></Button>&nbsp;
+                <Button bsSize="small" bsStyle="primary">Edit Post</Button>&nbsp;
+                <DeleteBtn item={post.id}/>
             </div>
         )
     };

@@ -4,7 +4,9 @@ import {Link} from 'react-router-dom';
 import {ListGroup, ListGroupItem, Button, ButtonGroup } from 'react-bootstrap';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
+
 import {selectPost} from '../actions/index';
+import DeleteBtn from '../components/deleteBtn';
 import helperFunctions from '../utils/helperFunctions';
 
 class ListPosts extends Component {
@@ -46,7 +48,7 @@ class ListPosts extends Component {
                     <p>Time: {time}, Rating: {post.voteScore}, Comments: {post.commentCount}</p>
                     <ButtonGroup>
                         <Button bsSize="small" bsStyle="primary">Edit</Button>
-                        <Button bsSize="small" bsStyle="danger">Delete</Button>
+                        <DeleteBtn item={post.id}/>
                     </ButtonGroup>
                 </ListGroupItem>
             )
