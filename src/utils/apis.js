@@ -86,7 +86,7 @@ class API {
         return this.postData(url, data)
     }
 
-    static updatePostScore(data){ // Used for voting on a post
+    static updatePostScore(id, data){ // Used for voting on a post
         const url = `${host}/posts/${id}`;
         return this.postData(url, data)
     }
@@ -117,7 +117,7 @@ class API {
     //     body: String
     //     author: String
     //     parentId: Should match a post id in the database.
-    //
+
     // POST /comments/:id
     //   USAGE:
     //     Used for voting on a comment.
