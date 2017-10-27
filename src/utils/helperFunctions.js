@@ -11,7 +11,7 @@ export default class helperFunctions {
     };
 
     static generateTimestamp(){
-        return parseInt(Moment().format("x"));
+        return parseInt(Moment().format("x"),10);
     }
 
     static formatCategory(category){

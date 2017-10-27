@@ -23,7 +23,7 @@ class CategoryList extends Component {
 
   render() {
     return (
-      <div className='CategoryListContainer listSection well'>
+      <div className='CategoryListContainer listSection'>
         <h3>Category List</h3>
         <p>Choose the Category you might like:</p>
 

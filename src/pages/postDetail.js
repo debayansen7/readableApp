@@ -57,8 +57,8 @@ class postDetail extends Component {
                 {comments.length !== 0 ? <ListComments comments={this.state.comments} /> : <p>Sorry No Comments yet</p>
                 }
                 <hr/>
-                <Button bsStyle="default"><Link to='/createComment'>Add Comments</Link></Button>
-                <Button bsStyle="primary">Edit Post</Button>
+                <Button bsStyle="default"><Link to='/createComment'>Add Comments</Link></Button>&nbsp;
+                <Button bsStyle="primary">Edit Post</Button>&nbsp;
                 <Button bsStyle="danger">Delete Post</Button>
             </div>
         )

@@ -1,17 +1,24 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-import {ListGroup, ListGroupItem, Button, ButtonGroup} from 'react-bootstrap';
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux';
-import {selectPost} from '../actions/index';
+import {ListGroupItem, Button, ButtonGroup} from 'react-bootstrap';
+// import {bindActionCreators} from 'redux'
+// import {connect} from 'react-redux';
+// import {selectPost} from '../actions/index';
 import API from '../utils/apis';
 import helperFunctions from '../utils/helperFunctions';
+import ListPosts from '../components/ListPosts';
+
 
 class categoryPage extends Component {
 
     state = {
         posts: []
+    }
+    componentDidMount() {
+        API.fetchCategoryPosts(this.props.match.params.categoryName).then((posts) => {
+            this.setState({posts:JSON.parse(posts)})
+        })
     }
 
     createPostList(posts) {
@@ -33,33 +40,34 @@ class categoryPage extends Component {
         return newList;
     }
 
-    componentDidMount() {
-        API.fetchCategoryPosts(this.props.match.params.categoryName).then((posts) => {
-            this.setState({posts:JSON.parse(posts)})
-        })
-    }
+
 
     render() {
-        console.log(this.props.match.params.categoryName);
+        // console.log(this.props.match.params.categoryName);
 
+        // <h3>Posts under {helperFunctions.formatCategory(this.props.match.params.categoryName)} category:</h3>
+        // <Link to='/createPost'>Add Post</Link>
         return (
             <div className="categoryPage well">
-                <h3>Posts under this categroy</h3>
+
                 {this.state.posts.length !== 0 ?
-                    <ListGroup>{this.createPostList(this.state.posts)}</ListGroup> : <p>Sorry No Posts yet</p>
+                    <ListPosts fromWhere="categoryPage" categoryName={this.props.match.params.categoryName} categoryposts={this.state.posts}/>
+                    // <ListGroup>{this.createPostList(this.state.posts)}</ListGroup>
+                     :
+                    <p>Sorry No Posts yet</p>
                 }
-                <Link to='/createPost'>Add Post</Link>
             </div>
         );
     }
 }
 
-function mapStateToProps({posts}) {
-    return {posts: posts}
-}
+// function mapStateToProps({posts}) {
+//     return {posts: posts}
+// }
+//
+// function mapDispatchToProps(dispatch) {
+//     return bindActionCreators({selectPost}, dispatch)
+// }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({selectPost}, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(categoryPage);
+export default categoryPage;
+// export default connect(mapStateToProps, mapDispatchToProps)(categoryPage);

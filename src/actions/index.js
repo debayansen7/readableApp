@@ -1,34 +1,7 @@
 // -----------Category Actions------------------
 export const LOAD_CATEGORY = 'LOAD_CATEGORY';
-// export const SELECT_CATEGORY = 'SELECT_CATEGORY';
-// export const ADD_CATEGORY = 'ADD_CATEGORY';
-// export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 
 export function loadCategory (data) {return {type: LOAD_CATEGORY,data}};
-
-// export function selectCategory (category) {
-//   console.log(category);
-//   return {
-//     type: SELECT_CATEGORY,
-//     category,
-//     text:"Category Selected"
-//   }
-// }
-//
-// export function addCategory (category) {
-//   return {
-//     type: ADD_CATEGORY,
-//     payload: category
-//   }
-// }
-//
-// export function deleteCategory (category) {
-//   return {
-//     type: ADD_CATEGORY,
-//     payload: category
-//   }
-// }
-
 
 // -----------Post Actions------------------
 export const LOAD_POST = 'LOAD_POST';

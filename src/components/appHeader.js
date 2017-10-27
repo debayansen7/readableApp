@@ -13,7 +13,7 @@ export default function AppHeader() {
                     <li className="nav-item"><Link className='nav-link' to="/About">About</Link></li>
                     <li className="nav-item"><Link className='nav-link' to="/createPost">Create Post</Link></li>
                 </ul>
-            </nav >
+            </nav>
         </div>
     );
 };
