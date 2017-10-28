@@ -1,8 +1,8 @@
 import { LOAD_COMMENT, ADD_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from '../actions'
 
-const initialComments = []
+const initialSelectedComments = {}
 
-function comments(state = initialComments, action) {
+function selectedComment(state = initialSelectedComments, action) {
 
     switch (action.type) {
         case LOAD_COMMENT :
@@ -28,4 +28,5 @@ function comments(state = initialComments, action) {
     }
 };
 
-export default comments;
+
+export default selectedComment;

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { loadCategory, loadPost } from '../actions/index';
+import { loadAllCategory, loadAllPost } from '../actions/index';
 import { bindActionCreators } from 'redux'
 
 import AppHeader from './appHeader';
 import Home from '../pages/Home'
 import categoryPage from '../pages/categoryPage'
 import CreatePost from '../pages/createPost'
+import CreateComment from '../pages/createComment'
 import postDetail from '../pages/postDetail'
 import NoMatch from '../pages/NoMatch'
 import '../App.css';
@@ -18,9 +19,9 @@ class App extends Component {
 
   componentDidMount() {
     API.fetchCategories().then((data) => {
-        this.props.loadCategory(helperFunctions.objectFromArray(data))
+        this.props.loadAllCategory(helperFunctions.objectFromArray(data))
     })
-    API.fetchPosts().then((data) => this.props.loadPost({data}));
+    API.fetchPosts().then((data) => this.props.loadAllPost({data}));
   }
 
   render() {
@@ -35,7 +36,8 @@ class App extends Component {
             <Route exact path="/postDetail/:postID" component={postDetail} />
             <Route exact path="/createPost" component={CreatePost} />
             <Route exact path="/editPost/:postID" component={CreatePost} />
-            <Route exact path="/createPost" component={CreatePost} />
+            <Route exact path="/postDetail/:postID/createComment" component={CreateComment} />
+            <Route exact path="/postDetail/:postID/editComment/:commentID" component={CreateComment} />
             <Route component={NoMatch}/>
           </Switch>
         </div>
@@ -51,8 +53,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    loadCategory,
-    loadPost
+    loadAllCategory,
+    loadAllPost
   },dispatch)
 }
 

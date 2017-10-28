@@ -15,6 +15,7 @@ export default class helperFunctions {
     }
 
     static formatCategory(category){
+        console.log(category);
         let data = category;
         let rest = category.slice(1, data.length);
         return data.charAt(0).toUpperCase() + rest;

@@ -145,7 +145,7 @@ class API {
         return this.getData(url);
     };
 
-    //Post a comment
+    //Post/Add a comment
     static postComment(data){
         const url = `${host}/comments`;
         return this.postData(url, data)

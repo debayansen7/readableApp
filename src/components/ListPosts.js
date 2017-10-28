@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 
 import {ListGroup, ListGroupItem, Button, ButtonGroup } from 'react-bootstrap';
 
-import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
-import {selectPost} from '../actions/index';
+// import {bindActionCreators} from 'redux'
+// import {selectPost} from '../actions/index';
 
 import DeleteBtn from '../components/deleteBtn';
 import helperFunctions from '../utils/helperFunctions';
@@ -55,7 +55,6 @@ class ListPosts extends Component {
                     </ListGroupItem>
                 )
             }
-            
         })
         return newList;
     }
@@ -89,8 +88,10 @@ function mapStateToProps({posts}) {
     return {posts: posts}
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({selectPost}, dispatch)
-}
+// function mapDispatchToProps(dispatch) {
+//     return bindActionCreators(dispatch)
+//     // return bindActionCreators({selectPost}, dispatch)
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListPosts);
+// export default connect(mapStateToProps, mapDispatchToProps)(ListPosts);
+export default connect(mapStateToProps)(ListPosts);

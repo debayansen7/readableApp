@@ -7,16 +7,16 @@ import {ListGroup, ListGroupItem, Button, ButtonGroup, Glyphicon} from 'react-bo
 import DeleteBtn from '../components/deleteBtn';
 import Modal from 'react-modal';
 
-const customStyle={
-    content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-    }
-};
+// const customStyle={
+//     content : {
+//     top                   : '40px',
+//     left                  : '40px',
+//     right                 : 'auto',
+//     bottom                : 'auto',
+//     marginRight           : '0px',
+//     background            : 'rgb(255, 255, 255)'
+//     }
+// };
 
 class ListComments extends Component {
 
@@ -31,12 +31,12 @@ class ListComments extends Component {
     }
 
     openModal(){
-        alert("Triggered - openModal")
+        console.log("Triggered - openModal")
         this.setState({modalOpen:true});
     }
 
     closeModal(){
-        alert("Triggered - closeModal")
+        console.log("Triggered - closeModal")
         this.setState({modalOpen:false});
     }
 
@@ -65,22 +65,20 @@ class ListComments extends Component {
                             </ButtonGroup>
                         </ListGroupItem>
                     )
-                })}
 
+                })}
                 <Modal
-                    className='modal'
+                    className='modalwell'
                     overlayClassName='overlay'
                     isOpen={this.state.modalOpen}
                     onRequestClose={() => {this.closeModal()}}
-                    style={customStyle}
-                    contentLabel='Modal'
-                >
-                    <h1 id="heading">H1</h1>
-                    <div id="full_description">
-                    <p>Description goes here.</p>
+
+                    contentLabel='Modal' >
+                    <div>
+                        <h4 id="heading">Comment heading here</h4>
+                        <p>Comment body here</p>
                     </div>
                 </Modal>
-
             </ListGroup>
         )
     }
