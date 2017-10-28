@@ -19,9 +19,11 @@ export default function posts(state=initialPosts, action) {
             console.log(oldArr);
             return state = oldArr
 
-
         case DELETE_POST :
-        break;
+            let newPostData = JSON.parse(action.payload);
+            let newData = state.filter((post) => post.id !== newPostData.id);
+            console.log(newPostData);
+            return state = newData;
 
         default :
           return state

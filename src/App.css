@@ -1,43 +1,73 @@
 .App {
-  /*text-align: center;*/
+    /*text-align: center;*/
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  text-align: center;
-  background-color: #222;
-  height: auto;
-  padding: 20px;
-  color: white;
+    text-align: center;
+    background-color: #222;
+    height: auto;
+    padding: 20px;
+    color: white;
 }
 
-.navbar{
-  min-height: 0px;
-  margin-bottom: 5px;
+.navbar {
+    min-height: 0px;
+    margin-bottom: 5px;
 }
 
-.navbar-nav > li {
-  display: inline-block;
-  margin: 0px 10px;
+.navbar-nav>li {
+    display: inline-block;
+    margin: 0px 10px;
 }
 
 .App-title {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
-.App-body{
-  margin:10px;
+.App-body {
+    margin: 10px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.modal {
+    position: absolute;
+    top: 40px;
+    left: 200px;
+    right: 200px;
+    bottom: 40px;
+    border: 1px solid rgb(204, 204, 204);
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 20px;
+    border-radius: 3px;
+    box-shadow: 0 3px 8px 0 rgba(0, 0, 0, .24), 0 3px 12px 0 rgba(0, 0, 0, .12);
+    min-width: 500px;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

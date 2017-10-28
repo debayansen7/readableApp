@@ -1,6 +1,7 @@
 // const host = `${process.env.REACT_APP_BACKEND}`;
 const host = `http://localhost:7001`;
 const header = { 'Authorization': 'deb' };
+const updatedHeader = { 'Authorization': 'deb', 'Content-Type': 'application/json' }
 const credentials = '*' ;
 
 class API {
@@ -19,12 +20,11 @@ class API {
     // POST data API call
     static postData(url, dataBody){
         console.log(url, JSON.stringify(dataBody));
-        const postHeader = { 'Authorization': 'deb', 'Content-Type': 'application/json' }
         return fetch(
             url,
             {
                 method: 'POST',
-                headers: postHeader,
+                headers: updatedHeader,
                 credentials: credentials,
                 body: JSON.stringify(dataBody),
             }
@@ -35,8 +35,14 @@ class API {
     };
 
     // PUT data API call
-    static putData(url){
-        return fetch(url, { headers: header, credentials: credentials } )
+    static putData(url, id, dataBody){
+        return fetch(url,
+            {
+                method: 'PUT',
+                headers: updatedHeader,
+                credentials: credentials,
+                body: JSON.stringify(dataBody),
+            } )
             .then( (res) => { return(res.text()) })
             .then((data) => {
                 return this.data= data
@@ -45,7 +51,7 @@ class API {
 
     // DELETE data API call
     static deleteData(url){
-        return fetch(url, { headers: header, credentials: credentials } )
+        return fetch(url, { method: 'DELETE', headers: header, credentials: credentials } )
             .then( (res) => { return(res.text()) })
             .then((data) => {
                 return this.data= data
@@ -54,38 +60,45 @@ class API {
 
     /* ------------------------ Categories Calls--------------------------------------*/
 
-    static fetchCategories(){   // Get all of the categories available for the app.
+    // Get all of the categories available for the app.
+    static fetchCategories(){
         const url = `${host}/categories`;
         return this.getData(url);
     };
 
-    static fetchCategoryPosts(categoryName){  //Get all of the posts for a particular category
+    //Get all of the posts for a particular category
+    static fetchCategoryPosts(categoryName){
         const url = `${host}/${categoryName}/posts`;
         return this.getData(url);
     };
 
     // ---------------- Posts -------------------------------
 
-    static fetchPosts(){  //Get all of the posts.
+    //Get all of the posts.
+    static fetchPosts(){
         const url = `${host}/posts`;
         return this.getData(url);
     };
 
-    static fetchPostByID(postID){    //Get the details of a single post
+    //Get the details of a single post
+    static fetchPostByID(postID){
         const url = `${host}/posts/${postID}`;
         return this.getData(url);
     };
 
-    static fetchCommentsByPost(postID){    //Get all the comments for a single post
+    //Get all the comments for a single post
+    static fetchCommentsByPost(postID){
         const url = `${host}/posts/${postID}/comments`;
         return this.getData(url);
     };
 
-    static postingPost(data){ // Posting a post
+    //Posting a post
+    static postingPost(data){
         const url = `${host}/posts`;
         return this.postData(url, data)
     }
 
+    //Used for voting on a post
     static updatePostScore(id, data){ // Used for voting on a post
         const url = `${host}/posts/${id}`;
         return this.postData(url, data)
@@ -96,41 +109,48 @@ class API {
     //   PARAMS:
     //     option - String: Either "upVote" or "downVote"
 
-    static updatePost(id, data){ // Used for voting on a post
+    //Used for voting on a post
+    static votePost(id, data){
         const url = `${host}/posts/${id}`;
         return this.postData(url, data)
     }
 
-    static deletePost(id){ //  Deleting a post
+    //Deleting a post
+    static deletePost(id){
         const url = `${host}/posts/${id}`;
         return this.deleteData(url)
     }
-    // DELETE /posts/:id
-    //   USAGE:
-    //     Sets the deleted flag for a post to 'true'.
-    //     Sets the parentDeleted flag for all child comments to 'true'.
+        // DELETE /posts/:id
+        //   USAGE:
+        //     Sets the deleted flag for a post to 'true'.
+        //     Sets the parentDeleted flag for all child comments to 'true'.
+
+    //Edit the details of an existing post
+    static editPost(id, data){
+        const url = `${host}/posts/${id}`;
+        return this.putData(url, id, data);
+    }
+        // PUT /posts/:id
+        //   USAGE:
+        //     Edit the details of an existing post
+        //   PARAMS:
+        //     title - String
+        //     body - String
 
     // ---------------- Comments -------------------------------
 
-    static fetchCommentByID(commentID){     //Get the details for a single comment
+    //Get the details for a single comment
+    static fetchCommentByID(commentID){
         const url = `${host}/comments/${commentID}`;
         return this.getData(url);
     };
 
-    static postComment(data){     //Post a comment
+    //Post a comment
+    static postComment(data){
         const url = `${host}/comments`;
         return this.postData(url, data)
     };
-
-    static deleteComment(id){     // Deleting a post
-        const url = `${host}/comments/${id}`;
-        return this.postData(url)
-    };
-    // DELETE /comments/:id
-    //   USAGE:
-    //     Sets a comment's deleted flag to 'true'
-
-    // POST /comments
+        // POST /comments
     //   USAGE:
     //     Add a comment to a post
     //   PARAMS:
@@ -140,25 +160,36 @@ class API {
     //     author: String
     //     parentId: Should match a post id in the database.
 
+    //Deleting a Comment
+    static deleteComment(id){
+        const url = `${host}/comments/${id}`;
+        return this.postData(url)
+    };
+        // DELETE /comments/:id
+    //   USAGE:
+    //     Sets a comment's deleted flag to 'true'
+
+    //Edit particular comment - PUT /comments/:id
+    static editComment(id, data){
+        const url = `${host}/comments/${id}`;
+        return this.putData(url, id, data);
+    }
+        //   USAGE:
+        //     Edit the details of an existing comment
+        //   PARAMS:
+        //     timestamp: timestamp. Get this however you want.
+        //     body: String
+
     // POST /comments/:id
+    static voteComment(id){
+
+    }
     //   USAGE:
     //     Used for voting on a comment.
     //
-    // PUT /comments/:id
-    //   USAGE:
-    //     Edit the details of an existing comment
-    //
-    //   PARAMS:
-    //     timestamp: timestamp. Get this however you want.
-    //     body: String
-    //
-    // PUT /posts/:id
-    //   USAGE:
-    //     Edit the details of an existing post
-    //   PARAMS:
-    //     title - String
-    //     body - String
-    //
+
+
+
 };
 
 export default API;

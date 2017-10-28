@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import { Redirect } from 'react-router-dom';
 import {Button, FormGroup, FormControl } from 'react-bootstrap';
 // import { Route } from 'react-router-dom';
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
 import {addPost} from '../actions/index';
+
 import helperFunctions from '../utils/helperFunctions';
 import API from '../utils/apis';
 
@@ -26,6 +28,13 @@ class CreatePost extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
+    redirect(){
+        console.log("Redirect triggered");
+        return (
+            <Redirect to="/"/>
+        )
+    }
+
     handleChange(event) {
         let property = event.target.name;
         let value = event.target.value;
@@ -41,8 +50,11 @@ class CreatePost extends Component {
             const {id, title, author, body, timestamp, category} = this.state;
             let newDateSet = {id, title, author, body, timestamp, category};
             API.postingPost(newDateSet).then((data) => {
+                console.log(data);
                 this.props.addPost(JSON.parse(data));
+                this.redirect();
             });
+
         } );
     };
 

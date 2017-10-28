@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 import {ListGroup, ListGroupItem, Button, ButtonGroup } from 'react-bootstrap';
+
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux';
-
 import {selectPost} from '../actions/index';
+
 import DeleteBtn from '../components/deleteBtn';
 import helperFunctions from '../utils/helperFunctions';
 
@@ -42,22 +43,24 @@ class ListPosts extends Component {
         let newList = list.map((post) => {
             // let category = helperFunctions.formatCategory(post.category);
             let time = helperFunctions.formatDate(post.timestamp);
-            return (
-                <ListGroupItem key={post.id}>
+            if(!post.deleted){
+                return (
+                    <ListGroupItem key={post.id}>
                     <Link to={`/postDetail/${post.id}`} ><h4>{post.title}</h4></Link>
                     <p>Time: {time}, Rating: {post.voteScore}, Comments: {post.commentCount}</p>
                     <ButtonGroup>
-                        <Button bsSize="small" bsStyle="primary">Edit</Button>
-                        <DeleteBtn item={post.id}/>
+                    <Button bsSize="small" bsStyle="primary">Edit</Button>
+                    <DeleteBtn item={post.id} itemType='post'/>
                     </ButtonGroup>
-                </ListGroupItem>
-            )
+                    </ListGroupItem>
+                )
+            }
+            
         })
         return newList;
     }
 
     render() {
-        console.log(this.props.categoryposts);
         return (
             <div className='postList'>
                 {this.props.fromWhere === 'homepage' ?

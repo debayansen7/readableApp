@@ -21,17 +21,17 @@ export function selectPost (post) {
 }
 
 export function addPost (data) {
-    console.log(data);
+    // console.log(data);
     return {
         type: ADD_POST,
         data
     }
 }
 
-export function deletePost (post) {
+export function deletePost (data) {
     return {
         type: DELETE_POST,
-        payload: post
+        payload: data
     }
 }
 
@@ -46,5 +46,12 @@ export function addComment ({id, comment}) {
         type: ADD_COMMENT,
         id,
         comment
+    }
+}
+
+export function deleteComment (comment) {
+    return {
+        type: DELETE_COMMENT,
+        payload: comment
     }
 }

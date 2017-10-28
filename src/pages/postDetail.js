@@ -6,14 +6,17 @@ import {Button, Glyphicon} from 'react-bootstrap';
 // import {bindActionCreators} from 'redux'
 // import {connect} from 'react-redux';
 // import {selectPost} from '../actions/index';
+
 import ListComments from '../components/listComments';
 import DeleteBtn from '../components/deleteBtn';
 
 class postDetail extends Component {
-
-    state = {
-        post: {},
-        comments: []
+    constructor(props){
+    	super(props);
+    	this.state = {
+            post: {},
+            comments: [],
+        };
     }
 
     componentDidMount() {
@@ -60,14 +63,17 @@ class postDetail extends Component {
                 <hr/>
                 <Button bsSize="small" bsStyle="default"><Link to='/createComment'>Add Comments</Link></Button>&nbsp;
                 <Button bsSize="small" bsStyle="primary">Edit Post</Button>&nbsp;
-                <DeleteBtn item={post.id}/>
+                <DeleteBtn item={post.id} itemType='post'/>
             </div>
         )
     };
     render() {
         const {post} = this.state;
         return (
-            <div className='PostDetail well'> {post !== {} ? this.definePost(post) : <p>Sorry Cannot find post</p>} </div>
+            <div className='PostDetail well'>
+                {post !== {} ? this.definePost(post) : <p>Sorry Cannot find post</p>}
+            </div>
+
         );
     };
 };
