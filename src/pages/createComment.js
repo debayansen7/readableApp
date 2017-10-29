@@ -28,14 +28,6 @@ class CreateComment extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
-    redirect() {
-        withRouter(({ history }) => (history.push('/')));
-        console.log("Redirect triggered");
-        return (
-            <Redirect push to="/"/>
-        )
-    }
-
     handleChange(event) {
         let property = event.target.name;
         let value = event.target.value;
@@ -59,11 +51,6 @@ class CreateComment extends Component {
 
         } );
     };
-
-    // updateStore({history}){
-    //     this.props.addPost(this.state);
-    //     history.push('/');
-    // };
 
     checkFields(){
       const {author, body} = this.state;

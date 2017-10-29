@@ -10,7 +10,7 @@ function selectedComment(state = initialSelectedComments, action) {
             return state = action.data;
 
         case EDIT_COMMENT :
-        break;
+            return state = action.data;
 
         default :
         return state

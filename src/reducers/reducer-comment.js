@@ -20,6 +20,9 @@ function comments(state = initialComments, action) {
             // console.log(oldArr);
             return state = oldArr
 
+        // case EDIT_COMMENT :
+        //     return state = action.data;
+
         case DELETE_COMMENT:
             newPostData = JSON.parse(action.data);
             console.log(newPostData.id);

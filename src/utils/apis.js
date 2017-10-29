@@ -173,7 +173,7 @@ class API {
     //Edit particular comment - PUT /comments/:id
     static editComment(id, data){
         const url = `${host}/comments/${id}`;
-        return this.putData(url, id, data);
+        return this.putData(url, data);
     }
         //   USAGE:
         //     Edit the details of an existing comment

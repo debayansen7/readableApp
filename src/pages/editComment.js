@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+// import { Redirect, withRouter } from 'react-router-dom';
 import {Button, FormGroup, FormControl } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { addComment, loadAllComment } from '../actions/index';
+import { loadComment, editComment } from '../actions/index';
 
 import helperFunctions from '../utils/helperFunctions';
 import API from '../utils/apis';
@@ -28,13 +28,20 @@ class EditComment extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     };
 
-    redirect() {
-        withRouter(({ history }) => (history.push('/')));
-        console.log("Redirect triggered");
-        return (
-            <Redirect push to="/"/>
-        )
-    }
+    componentDidMount() {
+        const ID = this.props.match.params.commentID;
+        console.log(ID);
+        API.fetchCommentByID(ID).then((data) => {
+            // console.log(data);
+            this.props.loadComment(JSON.parse(data));
+            this.setState({
+                id: this.props.selectedComment.id,
+                body:  this.props.selectedComment.body,
+                author:  this.props.selectedComment.author,
+                parentId:  this.props.selectedComment.parentId,
+            })
+        });
+    };
 
     handleChange(event) {
         let property = event.target.name;
@@ -45,16 +52,13 @@ class EditComment extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.setState({
-            parentId: this.props.match.params.postID,
-            id: helperFunctions.genetateID(),
             timestamp: helperFunctions.generateTimestamp()
         }, () => {
             const {id, body, author, timestamp, parentId} = this.state;
-            let newDateSet = {id, body, author, timestamp, parentId};
-            API.postComment(newDateSet).then((data) => {
+            let newDateSet = {body, author, timestamp, parentId};
+            API.editComment(id, newDateSet).then((data) => {
                 console.log(data);
-                this.props.addComment(JSON.parse(data));
-                // this.redirect();
+                this.props.editComment(JSON.parse(data));
             });
 
         } );
@@ -87,7 +91,7 @@ class EditComment extends Component {
 
                     </FormGroup>
 
-                    <Button type="submit" bsStyle="primary" onClick={this.handleSubmit} disabled={this.checkFields()}>Add Comment</Button>
+                    <Button type="submit" bsStyle="primary" onClick={this.handleSubmit} disabled={this.checkFields()}>Edit Comment</Button>
                 </form>
             </div>
         );
@@ -99,7 +103,7 @@ function mapStateToProps({posts, comments, selectedComment}) {
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addComment, loadAllComment},dispatch)
+    return bindActionCreators({loadComment, editComment},dispatch)
 };
 
 // export default CreateComment;
