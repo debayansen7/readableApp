@@ -4,7 +4,7 @@ import { LOAD_POST, EDIT_POST, VOTE_POST } from '../actions'
 const initialPosts = {};
 
 export default function selectedPost(state=initialPosts, action) {
-    console.log(action);
+    // console.log(action);
     let newPostData = [];
     let newData = '';
 

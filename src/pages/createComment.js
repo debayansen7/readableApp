@@ -4,7 +4,7 @@ import {Button, FormGroup, FormControl } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { addPost } from '../actions/index';
+import { addComment, loadAllComment } from '../actions/index';
 
 import helperFunctions from '../utils/helperFunctions';
 import API from '../utils/apis';
@@ -15,12 +15,13 @@ class CreateComment extends Component {
         super(props);
         this.state = {
                 id: "",
+                parentId:"",
                 timestamp:"",
                 body:"",
                 author:"",
-                parentId:"",
                 voteScore: 0,
                 deleted: false,
+                parentDeleted: false,
                 commentCount: 0
             };
         this.handleChange = this.handleChange.bind(this);
@@ -65,13 +66,13 @@ class CreateComment extends Component {
     // };
 
     checkFields(){
-      const {author, category, title, body} = this.state;
+      const {author, body} = this.state;
       return (author < 1 || body < 1 );
     };
 
     render() {
         // console.log(this.state);
-        const {title, body, author, category} = this.state;
+        const { body, author} = this.state;
 
         return (
             <div className="createPost well">
@@ -93,12 +94,12 @@ class CreateComment extends Component {
     }
 };
 
-function mapStateToProps({posts, categories, selectedPost, selectedComment}) {
-    return{posts, categories, selectedPost, selectedComment}
+function mapStateToProps({posts, comments, selectedComment}) {
+    return{posts, comments, selectedComment}
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addPost},dispatch)
+    return bindActionCreators({addComment, loadAllComment},dispatch)
 };
 
 // export default CreateComment;

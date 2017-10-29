@@ -3,26 +3,23 @@ import '../App.css';
 
 // import API from '../utils/apis';
 import helperFunctions from '../utils/helperFunctions';
-import {ListGroup, ListGroupItem, Button, ButtonGroup, Glyphicon} from 'react-bootstrap';
-import DeleteBtn from '../components/deleteBtn';
-import Modal from 'react-modal';
 
-// const customStyle={
-//     content : {
-//     top                   : '40px',
-//     left                  : '40px',
-//     right                 : 'auto',
-//     bottom                : 'auto',
-//     marginRight           : '0px',
-//     background            : 'rgb(255, 255, 255)'
-//     }
-// };
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux';
+import { loadComment, voteComment } from '../actions/index';
+
+import {ListGroup, ListGroupItem, Button, ButtonGroup} from 'react-bootstrap';
+import DeleteBtn from '../components/deleteBtn';
+import RateBtns from '../components/rateBtns';
+
+import Modal from 'react-modal';
 
 class ListComments extends Component {
 
     constructor(props){
     	super(props);
     	this.state = {
+            voteScore: '',
             modalOpen: false,
             closeModal: false,
         };
@@ -43,22 +40,19 @@ class ListComments extends Component {
     render() {
         // console.log(this.props);
         const {comments} = this.props;
-
+        
         return (
             <ListGroup>
                 {comments.map((comment) => {
                     let time = helperFunctions.formatDate(comment.timestamp);
+                    // let time = comment.timestamp;
                     return (
                         <ListGroupItem key={comment.id}>
                             <h5> {comment.body}</h5>
-                            <p>Author: {comment.author}, Time: {time}, Rating:
-                                <Button bsStyle="default" bsSize="xsmall" onClick={this.onIncrement}>
-                                    <Glyphicon glyph="glyphicon glyphicon-plus" />
-                                </Button>
-                                <Button bsSize="xsmall">{comment.voteScore}</Button>
-                                <Button bsStyle="default" bsSize="xsmall" onClick={this.onDecrement}>
-                                    <Glyphicon glyph="glyphicon glyphicon-minus" />
-                                </Button></p>
+                            <div>Author: {comment.author},
+                                Time: {time},
+                                Rating: <RateBtns itemID={comment.id} itemType="comment" voteScore={comment.voteScore}/>
+                            </div>
                             <ButtonGroup>
                                 <Button bsStyle="primary" bsSize="xsmall" onClick={()=>this.openModal()}>Edit</Button>
                                 <DeleteBtn item={comment.id} itemType='comment'/>
@@ -84,4 +78,15 @@ class ListComments extends Component {
     }
 }
 
-export default ListComments;
+// export default ListComments;
+
+function mapStateToProps({comments, selectedComment}) {
+    return{comments, selectedComment}
+};
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({loadComment, voteComment}, dispatch)
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListComments);

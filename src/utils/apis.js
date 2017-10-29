@@ -83,6 +83,7 @@ class API {
     //Get the details of a single post
     static fetchPostByID(postID){
         const url = `${host}/posts/${postID}`;
+        // console.log("url:",url);
         return this.getData(url);
     };
 
@@ -163,7 +164,7 @@ class API {
     //Deleting a Comment
     static deleteComment(id){
         const url = `${host}/comments/${id}`;
-        return this.postData(url)
+        return this.deleteData(url)
     };
         // DELETE /comments/:id
     //   USAGE:
@@ -181,8 +182,9 @@ class API {
         //     body: String
 
     // POST /comments/:id
-    static voteComment(id){
-
+    static voteComment(id, data){
+        const url = `${host}/comments/${id}`;
+        return this.postData(url, data)
     }
     //   USAGE:
     //     Used for voting on a comment.

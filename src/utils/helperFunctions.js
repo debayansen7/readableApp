@@ -15,10 +15,14 @@ export default class helperFunctions {
     }
 
     static formatCategory(category){
-        console.log(category);
-        let data = category;
-        let rest = category.slice(1, data.length);
-        return data.charAt(0).toUpperCase() + rest;
+        // console.log(category);
+        if(category !== undefined){
+            let data = category;
+            let rest = category.slice(1, data.length);
+            return data.charAt(0).toUpperCase() + rest;
+        }else{
+            return category;
+        }
     };
 
     static objectFromArray(arr){

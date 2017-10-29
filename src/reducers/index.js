@@ -3,7 +3,7 @@ import categories from './reducer-category'
 import posts from './reducer-post'
 import selectedPost from './reducer-selectedPost'
 import comments from './reducer-comment'
-import selectedComment from './reducer-comment'
+import selectedComment from './reducer-selectedComment'
 
 const allReducer = combineReducers({
   categories: categories,

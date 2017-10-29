@@ -9,6 +9,8 @@ import {connect} from 'react-redux';
 
 import DeleteBtn from '../components/deleteBtn';
 import helperFunctions from '../utils/helperFunctions';
+import RateBtns from '../components/rateBtns';
+
 
 class ListPosts extends Component {
 
@@ -41,19 +43,24 @@ class ListPosts extends Component {
 
     createPostList(list) {
         let newList = list.map((post) => {
-            // let category = helperFunctions.formatCategory(post.category);
+            let category = helperFunctions.formatCategory(post.category);
             let time = helperFunctions.formatDate(post.timestamp);
             if(!post.deleted){
                 return (
                     <ListGroupItem key={post.id}>
                     <Link to={`/postDetail/${post.id}`} ><h4>{post.title}</h4></Link>
-                    <p>Time: {time}, Rating: {post.voteScore}, Comments: {post.commentCount}</p>
-                    <ButtonGroup>
-                    <Button bsSize="small" bsStyle="primary">Edit</Button>
-                    <DeleteBtn item={post.id} itemType='post'/>
-                    </ButtonGroup>
+                    <p>Time: {time}, Category: {category}, Comments: {post.commentCount}</p>
+                    <div>
+                        Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
+                        <ButtonGroup>
+                            <Button bsSize="small" bsStyle="primary">Edit</Button>
+                            <DeleteBtn item={post.id} itemType='post'/>
+                        </ButtonGroup>
+                    </div>
                     </ListGroupItem>
                 )
+            }else{
+                return ''
             }
         })
         return newList;
