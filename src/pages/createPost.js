@@ -43,7 +43,7 @@ class CreatePost extends Component {
             const {id, title, author, body, timestamp, category} = this.state;
             let newDateSet = {id, title, author, body, timestamp, category};
             API.postingPost(newDateSet).then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.props.addPost(JSON.parse(data));
             });
 

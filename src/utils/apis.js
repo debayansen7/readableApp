@@ -19,7 +19,7 @@ class API {
 
     // POST data API call
     static postData(url, dataBody){
-        console.log(url, JSON.stringify(dataBody));
+        // console.log(url, JSON.stringify(dataBody));
         return fetch(
             url,
             {

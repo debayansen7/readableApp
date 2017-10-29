@@ -30,7 +30,7 @@ class EditComment extends Component {
 
     componentDidMount() {
         const ID = this.props.match.params.commentID;
-        console.log(ID);
+        // console.log(ID);
         API.fetchCommentByID(ID).then((data) => {
             // console.log(data);
             this.props.loadComment(JSON.parse(data));
@@ -57,7 +57,7 @@ class EditComment extends Component {
             const {id, body, author, timestamp, parentId} = this.state;
             let newDateSet = {body, author, timestamp, parentId};
             API.editComment(id, newDateSet).then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.props.editComment(JSON.parse(data));
             });
 

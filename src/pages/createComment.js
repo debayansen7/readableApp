@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+// import { Redirect, withRouter } from 'react-router-dom';
 import {Button, FormGroup, FormControl } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux'
@@ -44,7 +44,7 @@ class CreateComment extends Component {
             const {id, body, author, timestamp, parentId} = this.state;
             let newDateSet = {id, body, author, timestamp, parentId};
             API.postComment(newDateSet).then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.props.addComment(JSON.parse(data));
                 // this.redirect();
             });

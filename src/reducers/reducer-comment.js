@@ -25,16 +25,16 @@ function comments(state = initialComments, action) {
 
         case DELETE_COMMENT:
             newPostData = JSON.parse(action.data);
-            console.log(newPostData.id);
+            // console.log(newPostData.id);
             newData = state.filter((comment) => comment.id !== newPostData.id);
-            console.log(newData);
+            // console.log(newData);
             return state = newData;
 
         case VOTE_COMMENT:
             newPostData = action.data;
             newData = state.map((comment) => {
                 if(comment.id === newPostData.id){
-                    console.log("Matched comment");
+                    // console.log("Matched comment");
                     comment.voteScore = newPostData.voteScore;
                 }
                 return comment

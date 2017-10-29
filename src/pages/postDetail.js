@@ -31,12 +31,12 @@ class postDetail extends Component {
     componentDidMount() {
         const ID = this.props.match.params.postID;
         API.fetchPostByID(ID).then((data) => {
-            console.log(data);
+            // console.log(data);
             this.props.loadPost(JSON.parse(data));
             // this.setState({post:JSON.parse(data)})
         } )
         API.fetchCommentsByPost(ID).then((data) => {
-            console.log(data);
+            // console.log(data);
             this.props.loadAllComment(JSON.parse(data));
             this.setState({comments:this.props.comments});
         } )

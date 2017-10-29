@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import { loadComment, votePost, voteComment } from '../actions/index';
 
 import API from '../utils/apis';
-// import helperFunctions from '../utils/helperFunctions';
 
 class RateBtns extends Component{
     constructor(props){

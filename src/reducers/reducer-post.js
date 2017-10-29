@@ -24,31 +24,31 @@ export default function posts(state=initialPosts, action) {
         case DELETE_POST :
             newPostData = JSON.parse(action.payload);
             newData = state.filter((post) => post.id !== newPostData.id);
-            console.log(newPostData);
+            // console.log(newPostData);
             return state = newData;
 
         case EDIT_POST:
             newPostData = action.data;
             newData = state.map((post) => {
                 if(post.id === newPostData.id){
-                    console.log("Matched post");
+                    // console.log("Matched post");
                     post = newPostData;
                 }
                 return post
             });
-            console.log(newPostData);
+            // console.log(newPostData);
             return state = newData;
 
         case VOTE_POST:
             newPostData = action.payload;
             newData = state.map((post) => {
                 if(post.id === newPostData.id){
-                    console.log("Matched post");
+                    // console.log("Matched post");
                     post.voteScore = newPostData.voteScore;
                 }
                 return post
             });
-            console.log(newData);
+            // console.log(newData);
             return state = newData;
 
         default :

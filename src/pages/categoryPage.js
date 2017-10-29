@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 import {ListGroupItem, Button, ButtonGroup} from 'react-bootstrap';
-// import {bindActionCreators} from 'redux'
-// import {connect} from 'react-redux';
-// import {selectPost} from '../actions/index';
+
 import API from '../utils/apis';
 import helperFunctions from '../utils/helperFunctions';
 import ListPosts from '../components/ListPosts';

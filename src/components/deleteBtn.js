@@ -11,15 +11,15 @@ class DeleteBtn extends Component {
 
     removeItem(item, itemType){
         if(itemType === 'post'){
-            console.log(item, itemType);
+            // console.log(item, itemType);
             API.deletePost(item).then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.props.deletePost(data);
             })
         }else{
-            console.log(item, itemType);
+            // console.log(item, itemType);
             API.deleteComment(item).then((data) => {
-                console.log(data);
+                // console.log(data);
                 this.props.deleteComment(data);
             })
         }

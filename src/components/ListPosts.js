@@ -93,10 +93,4 @@ function mapStateToProps({posts}) {
     return {posts: posts}
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return bindActionCreators(dispatch)
-//     // return bindActionCreators({selectPost}, dispatch)
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ListPosts);
 export default connect(mapStateToProps)(ListPosts);
