@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-import {ListGroup, ListGroupItem, Button, ButtonGroup } from 'react-bootstrap';
+import {ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux'
@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import DeleteBtn from '../components/deleteBtn';
 import helperFunctions from '../utils/helperFunctions';
 import RateBtns from '../components/rateBtns';
-
+import EditButton from '../components/editButton';
 
 class ListPosts extends Component {
 
@@ -48,15 +48,13 @@ class ListPosts extends Component {
             if(!post.deleted){
                 return (
                     <ListGroupItem key={post.id}>
-                    <Link to={`/postDetail/${post.id}`} ><h4>{post.title}</h4></Link>
-                    <p>Time: {time}, Category: {category}, Comments: {post.commentCount}</p>
-                    <div>
-                        Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
-                        <ButtonGroup>
-                            <Button bsSize="small" bsStyle="primary">Edit</Button>
-                            <DeleteBtn item={post.id} itemType='post'/>
-                        </ButtonGroup>
-                    </div>
+                        <Link to={`/postDetail/${post.id}`} ><h4>{post.title}</h4></Link>
+                        <p>Time: {time}, Category: {category}, Comments: {post.commentCount}</p>
+                        <div>
+                            Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
+                            <EditButton bsSize='xsmall' itemID={post.id} itemType="post" />&nbsp;
+                            <DeleteBtn bsSize='xsmall' item={post.id} itemType='post'/>
+                        </div>
                     </ListGroupItem>
                 )
             }else{

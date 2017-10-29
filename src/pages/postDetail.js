@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Redirect, Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import API from '../utils/apis';
 import helperFunctions from '../utils/helperFunctions';
@@ -13,6 +13,7 @@ import { loadPost, votePost, loadAllComment } from '../actions/index';
 import ListComments from '../components/listComments';
 import DeleteBtn from '../components/deleteBtn';
 import RateBtns from '../components/rateBtns';
+import EditButton from '../components/editButton';
 
 class postDetail extends Component {
     constructor(props){
@@ -30,12 +31,12 @@ class postDetail extends Component {
     componentDidMount() {
         const ID = this.props.match.params.postID;
         API.fetchPostByID(ID).then((data) => {
-            // console.log(data);
+            console.log(data);
             this.props.loadPost(JSON.parse(data));
             // this.setState({post:JSON.parse(data)})
         } )
         API.fetchCommentsByPost(ID).then((data) => {
-            // console.log(data);
+            console.log(data);
             this.props.loadAllComment(JSON.parse(data));
             this.setState({comments:this.props.comments});
         } )
@@ -49,20 +50,15 @@ class postDetail extends Component {
         // const {comments} = this.state;
         return (
             <div>
-                <h4>{post.title}</h4>
+                <h4><u>{post.title}</u></h4>
                 <p>{post.body}</p>
-                <div>Author: {post.author}, Category: {category}</div>
-                <div>Time: {time}, Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/></div>
-                <hr/>
-                <Button bsSize="small" bsStyle="primary" onClick={() => {
-                    alert("Triggered")
-                    return (
-                        // <Redirect push to={`/editPost/${post.id}`} />
-                        <Redirect to="/" />
-                    )
-                }}>Edit Post</Button>&nbsp;
-                <DeleteBtn item={post.id} itemType='post'/>&nbsp;
-                <Link to={`${post.id}/createComment`}><Button bsSize="small" bsStyle="default"><b>Add Comments</b></Button></Link>
+                <p>Author: {post.author}, Category: {category}, Time: {time}</p>
+                <div>
+                    Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
+                    <EditButton bsSize='small' itemID={post.id} itemType='post'/> &nbsp;
+                    <DeleteBtn bsSize='small' item={post.id} itemType='post'/> &nbsp;
+                    <Link to={`${post.id}/createComment`}><Button bsSize="small" bsStyle="default"><b>Add New Comment</b></Button></Link>
+                </div>
             </div>
         )
     };
@@ -76,7 +72,6 @@ class postDetail extends Component {
         return (
             <div className='PostDetail well'>
                 {post !== {} ? this.definePost(post) : <p>Sorry Cannot find post</p>}
-                <hr/>
                 <h5>Comments: </h5>
                 {comments === [] ? <p>Sorry No Comments yet</p> :
                     <ListComments comments={comments} onIncrement={this.onIncrement} onDecrement={this.onDecrement}/>

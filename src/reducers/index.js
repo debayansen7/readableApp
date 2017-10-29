@@ -8,8 +8,8 @@ import selectedComment from './reducer-selectedComment'
 const allReducer = combineReducers({
   categories: categories,
   posts: posts,
-  selectedPost: selectedPost,
   comments: comments,
+  selectedPost: selectedPost,
   selectedComment: selectedComment,
 })
 

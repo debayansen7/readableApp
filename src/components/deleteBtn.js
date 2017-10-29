@@ -26,12 +26,8 @@ class DeleteBtn extends Component {
     }
 
     render() {
-        let btnSize = 'small';
-        if(this.props.itemType === 'comment'){
-            btnSize = 'xsmall';
-        }
         return (
-            <Button bsSize={btnSize} bsStyle="danger" onClick={() => this.removeItem(this.props.item, this.props.itemType)}>Delete</Button>
+            <Button bsSize={this.props.bsSize} bsStyle="danger" onClick={() => this.removeItem(this.props.item, this.props.itemType)}>Delete</Button>
         );
     }
 }

@@ -35,7 +35,7 @@ class API {
     };
 
     // PUT data API call
-    static putData(url, id, dataBody){
+    static putData(url, dataBody){
         return fetch(url,
             {
                 method: 'PUT',
@@ -45,7 +45,7 @@ class API {
             } )
             .then( (res) => { return(res.text()) })
             .then((data) => {
-                return this.data= data
+                return this.data = data
             });
     };
 
@@ -129,7 +129,7 @@ class API {
     //Edit the details of an existing post
     static editPost(id, data){
         const url = `${host}/posts/${id}`;
-        return this.putData(url, id, data);
+        return this.putData(url, data);
     }
         // PUT /posts/:id
         //   USAGE:

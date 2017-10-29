@@ -1,32 +1,40 @@
 import React, {Component} from 'react';
-// import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import {Button, FormGroup, FormControl } from 'react-bootstrap';
 
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
-import { addPost } from '../actions/index';
+import { addComment, loadAllComment } from '../actions/index';
 
 import helperFunctions from '../utils/helperFunctions';
 import API from '../utils/apis';
 
-class CreatePost extends Component {
+class EditComment extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
                 id: "",
+                parentId:"",
                 timestamp:"",
-                title:"",
                 body:"",
                 author:"",
-                category:"",
                 voteScore: 0,
                 deleted: false,
+                parentDeleted: false,
                 commentCount: 0
             };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     };
+
+    redirect() {
+        withRouter(({ history }) => (history.push('/')));
+        console.log("Redirect triggered");
+        return (
+            <Redirect push to="/"/>
+        )
+    }
 
     handleChange(event) {
         let property = event.target.name;
@@ -37,67 +45,62 @@ class CreatePost extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.setState({
+            parentId: this.props.match.params.postID,
             id: helperFunctions.genetateID(),
             timestamp: helperFunctions.generateTimestamp()
         }, () => {
-            const {id, title, author, body, timestamp, category} = this.state;
-            let newDateSet = {id, title, author, body, timestamp, category};
-            API.postingPost(newDateSet).then((data) => {
+            const {id, body, author, timestamp, parentId} = this.state;
+            let newDateSet = {id, body, author, timestamp, parentId};
+            API.postComment(newDateSet).then((data) => {
                 console.log(data);
-                this.props.addPost(JSON.parse(data));
+                this.props.addComment(JSON.parse(data));
+                // this.redirect();
             });
 
         } );
     };
 
-    updateStore({history}){
-        this.props.addPost(this.state);
-        history.push('/');
-    };
+    // updateStore({history}){
+    //     this.props.addPost(this.state);
+    //     history.push('/');
+    // };
 
     checkFields(){
-      const {author, category, title, body} = this.state;
-      return (author < 1 || title < 1 || body < 1 || category === 'select');
+      const {author, body} = this.state;
+      return (author < 1 || body < 1 );
     };
 
     render() {
         // console.log(this.state);
-        const {title, body, author, category} = this.state;
+        const { body, author} = this.state;
 
         return (
             <div className="createPost well">
-                <h4>Create the post: </h4>
+                <h4>Edit the comment:</h4>
                 <form >
                     <FormGroup >
-                        <FormControl type='text' name='title' value={title} placeholder='Enter title here'
-                            onChange={this.handleChange} /><br/>
-
                         <FormControl componentClass="textarea" name='body' placeholder="Enter post body here" value={body}
                             onChange={this.handleChange} /><br/>
 
                         <FormControl type='text' name='author' value={author} placeholder='Enter author name'
                             onChange={this.handleChange} /><br/>
 
-                        <FormControl componentClass="select"  name='category' value={category} onChange={this.handleChange}>
-                            <option value="select" disabled>select</option>
-                            {this.props.categories.map((i) => <option key={i.name} >{i.name}</option> )}
-                        </FormControl>
                     </FormGroup>
 
-                    <Button type="submit" bsStyle="primary" onClick={this.handleSubmit} disabled={this.checkFields()}>Add Post</Button>
+                    <Button type="submit" bsStyle="primary" onClick={this.handleSubmit} disabled={this.checkFields()}>Add Comment</Button>
                 </form>
             </div>
         );
     }
 };
 
-function mapStateToProps({posts, categories}) {
-    return{posts, categories}
+function mapStateToProps({posts, comments, selectedComment}) {
+    return{posts, comments, selectedComment}
 };
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addPost},dispatch)
+    return bindActionCreators({addComment, loadAllComment},dispatch)
 };
 
-// export default CreatePost;
-export default connect(mapStateToProps,mapDispatchToProps)(CreatePost);
+// export default CreateComment;
+export default connect(mapStateToProps,mapDispatchToProps)(EditComment);

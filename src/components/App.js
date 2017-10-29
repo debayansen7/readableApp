@@ -8,7 +8,9 @@ import AppHeader from './appHeader';
 import Home from '../pages/Home'
 import categoryPage from '../pages/categoryPage'
 import CreatePost from '../pages/createPost'
+import EditPost from '../pages/editPost'
 import CreateComment from '../pages/createComment'
+import EditComment from '../pages/editComment'
 import postDetail from '../pages/postDetail'
 import NoMatch from '../pages/NoMatch'
 import '../App.css';
@@ -35,9 +37,9 @@ class App extends Component {
             <Route exact path="/categoryPage/:categoryName" component={categoryPage} />
             <Route exact path="/postDetail/:postID" component={postDetail} />
             <Route exact path="/createPost" component={CreatePost} />
-            <Route exact path="/editPost/:postID" component={CreatePost} />
+            <Route exact path="/editPost/:postID" component={EditPost} />
             <Route exact path="/postDetail/:postID/createComment" component={CreateComment} />
-            <Route exact path="/postDetail/:postID/editComment/:commentID" component={CreateComment} />
+            <Route exact path="/editComment/:commentID" component={EditComment} />
             <Route component={NoMatch}/>
           </Switch>
         </div>

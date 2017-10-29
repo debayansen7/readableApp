@@ -28,14 +28,13 @@ export default function posts(state=initialPosts, action) {
             return state = newData;
 
         case EDIT_POST:
-            newPostData = JSON.parse(action.payload);
+            newPostData = action.data;
             newData = state.map((post) => {
                 if(post.id === newPostData.id){
                     console.log("Matched post");
-                    post.title = newPostData.title;
-                    post.body = newPostData.body;
+                    post = newPostData;
                 }
-                return state
+                return post
             });
             console.log(newPostData);
             return state = newData;
