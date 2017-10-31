@@ -1,3 +1,5 @@
+// Combined Reducer for All reducers
+
 import {combineReducers} from 'redux';
 import categories from './reducer-category'
 import posts from './reducer-post'

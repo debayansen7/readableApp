@@ -1,3 +1,5 @@
+// Reducer for selected Posts
+
 import { LOAD_POST, EDIT_POST, VOTE_POST, DELETE_POST } from '../actions'
 
 const initialPosts = {};

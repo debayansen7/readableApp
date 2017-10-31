@@ -1,3 +1,5 @@
+// Reducer for All Comments
+
 import { LOAD_ALL_COMMENT, ADD_COMMENT, DELETE_COMMENT, VOTE_COMMENT } from '../actions'
 
 const initialComments = []

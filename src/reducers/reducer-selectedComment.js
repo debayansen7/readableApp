@@ -1,5 +1,6 @@
+// Reducer for selected Comments
+
 import { LOAD_COMMENT, EDIT_COMMENT } from '../actions'
-// import { LOAD_COMMENT, EDIT_COMMENT, VOTE_COMMENT } from '../actions'
 
 const initialSelectedComments = {}
 

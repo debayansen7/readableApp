@@ -1,3 +1,5 @@
+// Reducer for All Categories
+
 import { LOAD_ALL_CATEGORY } from '../actions'
 
 const initialCategories = []
