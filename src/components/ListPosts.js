@@ -42,7 +42,16 @@ class ListPosts extends Component {
     };
 
     createPostList(list) {
-        let newList = list.map((post) => {
+        let setList = [];
+        if(this.props.fromWhere !== 'homepage'){
+          setList = list.filter((post) => post.category === this.props.categoryName)
+          if(setList.length === 0){
+            return (<p>Sorry No Posts yet</p>)
+          }
+        }else{
+          setList = list
+        }
+        let newList = setList.map((post) => {
             let category = helperFunctions.formatCategory(post.category);
             let time = helperFunctions.formatDate(post.timestamp);
             if(!post.deleted){
@@ -78,12 +87,7 @@ class ListPosts extends Component {
                     <Button onClick={this.onHighestScoreClick} active={this.state.highestScoringPostsFlag}>Highest Rating</Button>&nbsp;or&nbsp;
                     <Button ><Link to='/createPost'>Add New Post</Link></Button>
                 </h4>
-                {this.props.fromWhere === 'homepage' ?
-                    <ListGroup>{this.createPostList(this.props.posts)}</ListGroup>
-                    :
-                    <ListGroup>{this.createPostList(this.props.categoryposts)}</ListGroup>
-                }
-
+                <ListGroup>{this.createPostList(this.props.posts)}</ListGroup>
             </div>
         )
     }
