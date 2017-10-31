@@ -48,33 +48,36 @@ class postDetail extends Component {
         const category = helperFunctions.formatCategory(post.category);
         const time = helperFunctions.formatDate(post.timestamp);
         // const {comments} = this.state;
+        const comments = this.props.comments.sort(function(a,b) {
+            return (a.voteScore < b.voteScore) ? 1 : ((b.voteScore < a.voteScore) ? -1 : 0)
+        });
         return (
             <div>
                 <h4><u>{post.title}</u></h4>
                 <p>{post.body}</p>
-                <p>Author: {post.author}, Category: {category}, Time: {time}</p>
+                <p>Author: {post.author}, Category: {category}, Time: {time}, Comment Count: {comments.length}</p>
                 <div>
                     Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
                     <EditButton bsSize='small' itemID={post.id} itemType='post'/> &nbsp;
                     <DeleteBtn bsSize='small' item={post.id} itemType='post'/> &nbsp;
                     <Link to={`${post.id}/createComment`}><Button bsSize="small" bsStyle="default"><b>Add New Comment</b></Button></Link>
                 </div>
+                <h5>Comments: </h5>
+                {comments === [] ? <p>Sorry No Comments yet</p> :
+                    <ListComments comments={comments} onIncrement={this.onIncrement} onDecrement={this.onDecrement}/>
+                }
             </div>
         )
     };
 
     render() {
         const post = this.props.selectedPost;
-        // const {comments} = this.props;
-        const comments = this.props.comments.sort(function(a,b) {
-            return (a.voteScore < b.voteScore) ? 1 : ((b.voteScore < a.voteScore) ? -1 : 0)
-        });
         return (
             <div className='PostDetail well'>
-                {post !== {} ? this.definePost(post) : <p>Sorry Cannot find post</p>}
-                <h5>Comments: </h5>
-                {comments === [] ? <p>Sorry No Comments yet</p> :
-                    <ListComments comments={comments} onIncrement={this.onIncrement} onDecrement={this.onDecrement}/>
+                {post.id === undefined ?
+                  <p>Sorry Cannot find post</p>
+                  :
+                  this.definePost(post)
                 }
             </div>
         );

@@ -1,4 +1,4 @@
-import { LOAD_POST, EDIT_POST, VOTE_POST } from '../actions'
+import { LOAD_POST, EDIT_POST, VOTE_POST, DELETE_POST } from '../actions'
 
 const initialPosts = {};
 
@@ -11,6 +11,9 @@ export default function selectedPost(state=initialPosts, action) {
             return state = action.data;
 
         case VOTE_POST:
+            return state = action.payload;
+
+        case DELETE_POST:
             return state = action.payload;
 
         default :

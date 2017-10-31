@@ -15,11 +15,8 @@ export default function posts(state=initialPosts, action) {
 
         case ADD_POST :
             const arrData = action.data;
-            // console.log(arrData);
-            const oldArr = state;
-            oldArr.push(arrData);
-            // console.log(oldArr);
-            return state = oldArr
+            const newArr = state.concat([arrData]);
+            return state = newArr
 
         case DELETE_POST :
             newPostData = JSON.parse(action.payload);
