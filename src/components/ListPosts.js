@@ -17,7 +17,7 @@ class ListPosts extends Component {
     constructor(props){
     	super(props);
     	this.state = {
-            posts: this.props.posts,
+            posts: [],
             latestPosts: [],
             latestPostsFlag: false,
             highestScoringPosts: [],

@@ -12,8 +12,10 @@ export default function posts(state=initialPosts, action) {
 
     switch (action.type) {
         case LOAD_ALL_POST :
-            const arr = JSON.parse(action.data.data);
-            return state[posts] = arr
+          const arr = JSON.parse(action.data);
+            // const arr = action.data;
+            // return arr
+          return state[posts] = arr
 
         case ADD_POST :
             const arrData = action.data;

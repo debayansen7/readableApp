@@ -52,21 +52,30 @@ class postDetail extends Component {
             return (a.voteScore < b.voteScore) ? 1 : ((b.voteScore < a.voteScore) ? -1 : 0)
         });
         return (
+          <div>
+
+          {
+            !post.deleted ?
             <div>
-                <h4><u>{post.title}</u></h4>
-                <p>{post.body}</p>
-                <p>Author: {post.author}, Category: {category}, Time: {time}, Comment Count: {comments.length}</p>
-                <div>
-                    Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
-                    <EditButton bsSize='small' itemID={post.id} itemType='post'/> &nbsp;
-                    <DeleteBtn bsSize='small' item={post.id} itemType='post'/> &nbsp;
-                    <Link to={`${post.id}/createComment`}><Button bsSize="small" bsStyle="default"><b>Add New Comment</b></Button></Link>
-                </div>
-                <h5>Comments: </h5>
-                {comments === [] ? <p>Sorry No Comments yet</p> :
-                    <ListComments comments={comments} onIncrement={this.onIncrement} onDecrement={this.onDecrement}/>
-                }
+              <h4><u>{post.title}</u></h4>
+              <p>{post.body}</p>
+              <p>Author: {post.author}, Category: {category}, Time: {time}, Comment Count: {comments.length}</p>
+              <div>
+                  Rating: <RateBtns itemID={post.id} itemType="post" voteScore={post.voteScore}/> &nbsp;
+                  <EditButton bsSize='small' itemID={post.id} itemType='post'/> &nbsp;
+                  <DeleteBtn bsSize='small' item={post.id} itemType='post'/> &nbsp;
+                  <Link to={`${post.id}/createComment`}><Button bsSize="small" bsStyle="default"><b>Add New Comment</b></Button></Link>
+              </div>
+              <h5>Comments: </h5>
+              {comments === [] ? <p>Sorry No Comments yet</p> :
+                  <ListComments comments={comments} onIncrement={this.onIncrement} onDecrement={this.onDecrement}/>
+              }
             </div>
+            :
+            <p>Sorry but the Post is deleted!!. Please go back to Home Page</p>
+          }
+          </div>
+
         )
     };
 

@@ -12,7 +12,9 @@ function comments(state = initialComments, action) {
 
     switch (action.type) {
         case LOAD_ALL_COMMENT :
-            return state = action.data;
+            const arr = action.data;
+            return state[comments] = arr
+            // return action.data
 
         case ADD_COMMENT :
             const arrData = action.data;
@@ -21,9 +23,6 @@ function comments(state = initialComments, action) {
             oldArr.push(arrData);
             // console.log(oldArr);
             return state = oldArr
-
-        // case EDIT_COMMENT :
-        //     return state = action.data;
 
         case DELETE_COMMENT:
             newPostData = JSON.parse(action.data);

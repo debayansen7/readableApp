@@ -10,7 +10,7 @@ export default function categories(state = initialCategories, action) {
 
   switch (action.type) {
     case LOAD_ALL_CATEGORY :
-        return state = action.data;
+      return action.data;
 
     default :
       return state

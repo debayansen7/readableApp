@@ -23,7 +23,7 @@ class App extends Component {
     API.fetchCategories().then((data) => {
         this.props.loadAllCategory(helperFunctions.objectFromArray(data))
     })
-    API.fetchPosts().then((data) => this.props.loadAllPost({data}));
+    API.fetchPosts().then((data) => this.props.loadAllPost(data));
   }
 
   render() {

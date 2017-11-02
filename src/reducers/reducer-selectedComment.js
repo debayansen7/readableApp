@@ -8,10 +8,16 @@ function selectedComment(state = initialSelectedComments, action) {
 
     switch (action.type) {
         case LOAD_COMMENT :
-            return state = action.data;
+            return {
+              ...state,
+              ...action.data
+            }
 
         case EDIT_COMMENT :
-            return state = action.data;
+            return {
+              ...state,
+              ...action.data
+            }
 
         default :
         return state

@@ -11,7 +11,7 @@ class RateBtns extends Component{
     constructor(props){
     	super(props);
         this.state = {
-            voteScore: this.props.voteScore,
+            voteScore: '',
         };
         this.onIncrement = this.onIncrement.bind(this);
         this.onDecrement = this.onDecrement.bind(this);
